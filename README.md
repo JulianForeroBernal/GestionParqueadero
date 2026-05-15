@@ -113,3 +113,4 @@ El proyecto busca desarrollar un prototipo funcional para la gestión de parquea
 - Integración con scanners y/o cámaras para automatizar completamente el proceso de ingreso y salida sin necesidad de interacción manual.
 - Implementación en la página web de la universidad.
 - Generacion de estadisticas de ocupacion.
+- -implementacion de más funciones orientadas a un administrador, como consultar regiustros, bloquear usuarios, etc.
