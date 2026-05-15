@@ -1,0 +1,73 @@
+@startuml
+class User{
+- id: int
+- name: String
+- dni: String
+- email: String
++ getters/setters()
++ constructors()
++ toString(): String
+}
+class Vehicle {
+- id: int
+- BarCode: BarCode
+- type: TypeVehicle
+- plate: String
+- user_id: int
++ getters/setters()
++ constructors()
++ toString(): String
+}
+class Parking {
+- zone: String
+- capacity: int
+- occupied: int
++ getters/setters()
++ constructors()
++ toString(): String
+}
+class Record {
+- id: int
+- entryTime: Date
+- exitTime: Date
+- vehicle_id: int
++ getters/setters()
++ constructors()
++ toString(): String
+}
+
+interface CRUDL<T> {
++ create(entity: T): void
++ read(id: int): T
++ update(entity: T): void
++ delete(id: int): void
++ list(): List<T>
+}
+enum TypeVehicle {
+CAR,
+MOTO,
+BIKE,
+}
+User "1" -- "0..*" Vehicle : owns
+Vehicle "1" -- "0..1" Record : has
+Parking "1" -- "0..*" Record : contains
+
+class UserDAOimpl implements CRUDL<User> {
++ CRUD methods()
++ list(): List<User>
+}
+class VehicleDAOimpl implements CRUDL<Vehicle> {
++ CRUD methods()
++ list(): List<Vehicle>
+}
+class ParkingDAOimpl implements CRUDL<Parking> {
++ CRUD methods()
++ list(): List<Parking>
+}
+class RecordDAOimpl implements CRUDL<Record> {
++ CRUD methods()
++ list(): List<Record>
+}
+
+
+@enduml
