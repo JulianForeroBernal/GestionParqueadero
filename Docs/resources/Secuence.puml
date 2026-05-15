@@ -1,0 +1,26 @@
+@startuml
+
+actor Usuario
+
+participant "Sistema" as Sistema
+participant "VehiculoDAO" as VehiculoDAO
+participant "ParqueaderoDAO" as ParqueaderoDAO
+participant "RegistroDAO" as RegistroDAO
+
+Usuario -> Sistema : Escanea código de barras
+
+Sistema -> VehiculoDAO : buscarVehiculo(codigo)
+
+VehiculoDAO --> Sistema : datosVehiculo
+
+Sistema -> ParqueaderoDAO : buscarParqueadero(tipoVehiculo)
+
+ParqueaderoDAO --> Sistema : datosParqueadero
+
+Sistema -> ParqueaderoDAO : disminuirCupo()
+
+Sistema -> RegistroDAO : crearRegistroIngreso()
+
+Sistema --> Usuario : Mostrar bienvenida
+
+@enduml
