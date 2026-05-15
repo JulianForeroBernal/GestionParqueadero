@@ -11,47 +11,70 @@ O en su defecto hacer un pull para bajar las actualizaciones del repositorio:
 
 en proceso...
 
-## 1. Estructura del proyecto.
+# Estructura del Proyecto
 
+```text
 GestionParqueadero/
 │
 ├── database/
-│   └── parqueadero.sql (archivo de script SQL para crear la base de datos y tablas necesarias)
+│   └── parqueadero.sql
+│       └── Script SQL para crear la base de datos y las tablas necesarias.
 │
 ├── docs/
-│   ├── diagramas/ (archivos con diagramas de diseño del sistema, como diagramas de clases, diagramas casos de uso, etc.)
-│   └── resources/ (archivos con recursos adicionales para el proyecto, principalmente archivos .uml para los diagramas de diseño)
-│       └──Casos_de_uso.puml (explica la interacciones entre el usuario y el sistema, y las funcionalidades que el sistema debe ofrecer)
-|       └──Diagrama_de_clases.puml (muestra las clases del sistema, sus atributos, métodos y relaciones entre ellas)
-|       └──Diagrama_de_secuencia.puml (muestra la secuencia de interacciones entre clases para realizar una funcionalidad específica del sistema, en este caso la mas importante: el ingreso al parqueadero)
-└── src/ (carpeta con el código fuente del proyecto)
-|   └── main/
+│   ├── diagramas/
+│   │   └── Archivos exportados de diagramas UML.
+│   │
+│   └── resources/
+│       └── Archivos fuente de diagramas UML (.puml).
+│
+│       ├── Casos_de_uso.puml
+│       │   └── Explica las interacciones entre los usuarios y el sistema.
+│       │
+│       ├── Diagrama_de_clases.puml
+│       │   └── Muestra clases, atributos, métodos y relaciones.
+│       │
+│       └── Diagrama_de_secuencia.puml
+│           └── Representa la secuencia de interacciones para el ingreso al parqueadero.
+│
+├── src/
+│   └── main/
 │       └── java/
-|           └── DAO/ (carpe con clases para la gestión de la base de datos, como conexión, consultas, etc.)
-│           ├── enums/ (carpeta con enumeraciones usadas en el proyecto, como tipos de vehículos, etc.)
-│           ├── model/ (carpeta con clases que representan las entidades del sistema, como Usuario, Vehiculo, etc.)
-|           ├── util/  (carpeta con clases de utilidad, como generación de códigos de barras, validaciones, conexión con la base de datos etc.)
-|           |
-│           ├──Main.java
+│           │
+│           ├── DAO/
+│           │   └── Clases para conexión y consultas a la base de datos.
+│           │
+│           ├── enums/
+│           │   └── Enumeraciones usadas en el sistema.
+│           │
+│           ├── model/
+│           │   └── Entidades principales del sistema.
+│           │
+│           ├── util/
+│           │   └── Clases utilitarias y validaciones.
+│           │
+│           └── Main.java
 │
+├── test/
+│   └── Carpeta destinada a pruebas unitarias e integración.
 │
-└── test/ (carpa con el código de pruebas unitarias y de integración no usado en este proyecto por ahora)
+├── .idea/
+│   └── Configuración de IntelliJ IDEA.
 │
-├──.ida/ (carpe con configuraciones de IntelliJ IDEA, puede ser ignorada si no se usa este IDE)
-├── .mvn/ (carpeta con archivos de configuración de Maven, puede ser ignorada si no se usa Maven)
-├── .gitignore (archivo para ignorar archivos y carpetas en el control de versiones)
-├── pom.xml (archivo de configuración de Maven, puede ser ignorado si no se usa Maven)
-├── README.md (archivo de documentación del proyecto)
-├── docker-compose.yml (archivo de configuración para Docker, puede ser ignorado si no se usa Docker)
-
-
-### 1.1 Info importante para el profesor:
-Como parte de nuestra propia investigación para el desarrollo del proyecto implementamos ciertos cambios pequeños a lo aprendido en clase, cambios los cuales serán explicados en esta sección
-- utilizamos una carpeta llamada "enums" para almacenar las enumeraciones usadas en el proyecto, es decir los tipos de vehículos usados. esto con el fin de mantener una mejor organización del código y facilitar su mantenimiento.
-- en lugar de hacer un DAO para cada entidad del sistema, decidimos implementar una sola interfaz "CRUDL<T>" general para realizar las operaciones básicas de creación, lectura, actualización, eliminación y listado de cualquier entidad del sistema, esto con el fin de reducir la cantidad de código repetitivo y mejorar la eficiencia en el desarrollo.
-  - cabe resaltar que la "etiqueta" <T> es un tipo genérico lo que significa que puede utilizar cualquier tipo de objeto.
-- existe un nuevo archivo llamado docker-compose.yml el cual contiene la configuración necesaria para ejecutar el sistema en un contenedor Docker, esto con el fin de facilitar su despliegue en diferentes entornos sin necesidad de configurar manualmente la base de datos y el entorno de ejecución. (explicado con mayor detalle en la sección de Instrucciones de uso)
-
+├── .mvn/
+│   └── Configuración de Maven.
+│
+├── .gitignore
+│   └── Archivos ignorados por Git.
+│
+├── pom.xml
+│   └── Configuración del proyecto Maven.
+│
+├── README.md
+│   └── Documentación principal del proyecto.
+│
+└── docker-compose.yml
+    └── Configuración de contenedores Docker.
+```
 ## 2. Descripción del proyecto
 El proyecto consiste en desarrollar un sistema para la gestión del parqueadero universitario mediante el uso de códigos de barras únicos para cada estudiante.
 Actualmente, el ingreso al parqueadero se realiza de forma manual mediante papelillos entregados por orden de llegada, lo que genera problemas varios al ingreso de la universidad como demoras, falta de claridad y seguridad, entre otros.
