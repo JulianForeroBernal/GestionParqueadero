@@ -112,4 +112,5 @@ El proyecto busca desarrollar un prototipo funcional para la gestión de parquea
 - Mejoras en la ciberseguridad para proteger la información de los usuarios y prevenir accesos no autorizados.
 - Integración con scanners y/o cámaras para automatizar completamente el proceso de ingreso y salida sin necesidad de interacción manual.
 - Implementación en la página web de la universidad.
-- Generacion de estadisticas de ocupacion.
+- Generacion de estadisticas.
+- -implementacion de más funciones orientadas a un administrador, como consultar regiustros, bloquear usuarios, etc.
