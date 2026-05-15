@@ -1,15 +1,29 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
-autonumber
 
-== Initialization ==
+actor Usuario
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+rectangle "Sistema de Gestión de Parqueadero" {
 
-== Repetition ==
+    usecase "Registrarse" as UC1
+    usecase "Registrar vehículo" as UC2
+    usecase "Generar código de barras" as UC3
+    usecase "Ingresar al parqueadero" as UC4
+    usecase "Registrar salida" as UC5
+    usecase "Consultar disponibilidad" as UC6
+    usecase "Validar usuario" as UC7
+    usecase "Registrar ingreso" as UC8
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+}
+
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC4
+Usuario --> UC5
+Usuario --> UC6
+
+UC2 .> UC3 : <<include>>
+UC4 .> UC7 : <<include>>
+UC4 .> UC8 : <<include>>
+
 @enduml
