@@ -11,7 +11,7 @@ O en su defecto hacer un pull para bajar las actualizaciones del repositorio:
 
 en proceso...
 
-# Estructura del Proyecto
+## 1. Estructura del Proyecto
 
 ```text
 GestionParqueadero/
@@ -75,6 +75,14 @@ GestionParqueadero/
 └── docker-compose.yml
     └── Configuración de contenedores Docker.
 ```
+
+### 1.1 Info importante para el profesor:
+Como parte de nuestra propia investigación para el desarrollo del proyecto implementamos ciertos cambios pequeños a lo aprendido en clase, cambios los cuales serán explicados en esta sección
+- utilizamos una carpeta llamada "enums" para almacenar las enumeraciones usadas en el proyecto, es decir los tipos de vehículos usados. esto con el fin de mantener una mejor organización del código y facilitar su mantenimiento.
+- en lugar de hacer un DAO para cada entidad del sistema, decidimos implementar una sola interfaz "CRUDL<T>" general para realizar las operaciones básicas de creación, lectura, actualización, eliminación y listado de cualquier entidad del sistema, esto con el fin de reducir la cantidad de código repetitivo y mejorar la eficiencia en el desarrollo.
+  - cabe resaltar que la "etiqueta" <T> es un tipo genérico lo que significa que puede utilizar cualquier tipo de objeto.
+- existe un nuevo archivo llamado docker-compose.yml el cual contiene la configuración necesaria para ejecutar el sistema en un contenedor Docker, esto con el fin de facilitar su despliegue en diferentes entornos sin necesidad de configurar manualmente la base de datos y el entorno de ejecución. (explicado con mayor detalle en la sección de Instrucciones de uso)
+
 ## 2. Descripción del proyecto
 El proyecto consiste en desarrollar un sistema para la gestión del parqueadero universitario mediante el uso de códigos de barras únicos para cada estudiante.
 Actualmente, el ingreso al parqueadero se realiza de forma manual mediante papelillos entregados por orden de llegada, lo que genera problemas varios al ingreso de la universidad como demoras, falta de claridad y seguridad, entre otros.
