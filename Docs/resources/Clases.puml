@@ -19,7 +19,7 @@ class Vehicle {
 + toString(): String
 }
 class Parking {
-- zone: String
+- zone: TypeVehicle
 - capacity: int
 - occupied: int
 + getters/setters()
