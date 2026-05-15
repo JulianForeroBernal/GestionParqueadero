@@ -5,12 +5,14 @@
 Clonar el repositorio en su máquina local: 
 bash: 
 "git clone https://github.com/JulianForeroBernal/GestionParqueadero.git"
-o en su defecto hacer un pull para bajar las acutualizaciones del repositorio:
+
+O en su defecto hacer un pull para bajar las actualizaciones del repositorio:
 "git pull origin main"
 
-ejectuar...
+en proceso...
 
 ## 1. Estructura del proyecto.
+
 GestionParqueadero/
 │
 ├── database/
@@ -19,14 +21,16 @@ GestionParqueadero/
 ├── docs/
 │   ├── diagramas/ (archivos con diagramas de diseño del sistema, como diagramas de clases, diagramas casos de uso, etc.)
 │   └── resources/ (archivos con recursos adicionales para el proyecto, principalmente archivos .uml para los diagramas de diseño)
-│
+│       └──Casos_de_uso.puml (explica la interacciones entre el usuario y el sistema, y las funcionalidades que el sistema debe ofrecer)
+|       └──Diagrama_de_clases.puml (muestra las clases del sistema, sus atributos, métodos y relaciones entre ellas)
+|       └──Diagrama_de_secuencia.puml (muestra la secuencia de interacciones entre clases para realizar una funcionalidad específica del sistema, en este caso la mas importante: el ingreso al parqueadero)
 └── src/ (carpeta con el código fuente del proyecto)
 |   └── main/
 │       └── java/
 |           └── DAO/ (carpe con clases para la gestión de la base de datos, como conexión, consultas, etc.)
 │           ├── enums/ (carpeta con enumeraciones usadas en el proyecto, como tipos de vehículos, etc.)
 │           ├── model/ (carpeta con clases que representan las entidades del sistema, como Usuario, Vehiculo, etc.)
-|           ├── util/  (carpeta con clases de utilidad, como generación de códigos de barras, validaciones, conexion con la base de datos etc.)
+|           ├── util/  (carpeta con clases de utilidad, como generación de códigos de barras, validaciones, conexión con la base de datos etc.)
 |           |
 │           ├──Main.java
 │
@@ -42,7 +46,7 @@ GestionParqueadero/
 
 
 ### 1.1 Info importante para el profesor:
-Como parte de nuestra propia investigación para el desarrollo del proyecto implementamos ciertos cambios pequeños a lo aprendido en clase, cambios los cuales seran explicados en esta seccion
+Como parte de nuestra propia investigación para el desarrollo del proyecto implementamos ciertos cambios pequeños a lo aprendido en clase, cambios los cuales serán explicados en esta sección
 - utilizamos una carpeta llamada "enums" para almacenar las enumeraciones usadas en el proyecto, es decir los tipos de vehículos usados. esto con el fin de mantener una mejor organización del código y facilitar su mantenimiento.
 - en lugar de hacer un DAO para cada entidad del sistema, decidimos implementar una sola interfaz "CRUDL<T>" general para realizar las operaciones básicas de creación, lectura, actualización, eliminación y listado de cualquier entidad del sistema, esto con el fin de reducir la cantidad de código repetitivo y mejorar la eficiencia en el desarrollo.
   - cabe resaltar que la "etiqueta" <T> es un tipo genérico lo que significa que puede utilizar cualquier tipo de objeto.
@@ -54,7 +58,7 @@ Actualmente, el ingreso al parqueadero se realiza de forma manual mediante papel
 
 El sistema permitirá automatizar el control de ingreso y salida de vehículos, registrar ocupación de espacios y consultar disponibilidad en tiempo real tanto para parqueadero de carros, motos, y bicicletas.
 
-## 3. Descripcion de problema
+## 3. Descripción de problema
 Bajo el sistema actual de gestion de los parqueaderos, se presentan los siguientes problemas o dificultades:
 - Uso de papelillos fáciles de perder.
 - Verificación manual del carnet estudiantil (validadcion como integrante de la universidad).
@@ -91,7 +95,7 @@ Desarrollar un sistema de gestión de parqueaderos universitarios que permita co
 ## 8. Tecnologías utilizadas.
 - Java: para el desarrollo del backend y la lógica del sistema.
 - MySQL: para la gestión de la base de datos.
-- JavaFX (libreria): para el desarrollo de la interfaz gráfica de usuario (GUI).
+- JavaFX (librería): para el desarrollo de la interfaz gráfica de usuario (GUI).
 - Librería de códigos de barras (como ZXing): para generar y leer códigos de barras.
 - Git: para el control de versiones y colaboración en el desarrollo del proyecto.
 - Maven: para la gestión de dependencias y construcción del proyecto.
@@ -112,5 +116,5 @@ El proyecto busca desarrollar un prototipo funcional para la gestión de parquea
 - Mejoras en la ciberseguridad para proteger la información de los usuarios y prevenir accesos no autorizados.
 - Integración con scanners y/o cámaras para automatizar completamente el proceso de ingreso y salida sin necesidad de interacción manual.
 - Implementación en la página web de la universidad.
-- Generacion de estadisticas.
-- -implementacion de más funciones orientadas a un administrador, como consultar regiustros, bloquear usuarios, etc.
+- Generación de estadísticas.
+- -implementacion de más funciones orientadas a un administrador, como consultar registros, bloquear usuarios, etc.
