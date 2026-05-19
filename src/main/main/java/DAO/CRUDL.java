@@ -1,4 +1,4 @@
-package java.DAO;
+package main.main.java.DAO;
 import java.util.List;
 
 public interface CRUDL<T> {
