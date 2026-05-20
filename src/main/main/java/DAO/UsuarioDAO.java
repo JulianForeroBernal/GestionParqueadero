@@ -1,4 +1,4 @@
-package org.example.dao;
+package main.main.java.DAO;
 
 import org.example.model.Usuario;
 import org.example.util.ConexionDB;
