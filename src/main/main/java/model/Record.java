@@ -2,16 +2,18 @@ package main.main.java.model;
 
 import main.main.java.enums.TypeVehicle;
 
+import java.time.LocalDateTime;
+
 public class Record {
     private int id;
-    private String entry_time;
-    private String departure_time;
+    private LocalDateTime entry_time;
+    private LocalDateTime departure_time;
     private int vehicle_id;
     private int parking_id;
 public Record(){
 
 }
-public Record(int id,String entry_time,String departure_time,int vehicle_id,int parking_id){
+public Record(int id,LocalDateTime entry_time,LocalDateTime departure_time,int vehicle_id,int parking_id){
     this.id=id;
     this.entry_time=entry_time;
     this.departure_time=departure_time;
@@ -27,19 +29,19 @@ public Record(int id,String entry_time,String departure_time,int vehicle_id,int 
         this.id = id;
     }
 
-    public String getEntry_time() {
+    public LocalDateTime getEntry_time() {
         return entry_time;
     }
 
-    public void setEntry_time(String entry_time) {
+    public void setEntry_time(LocalDateTime entry_time) {
         this.entry_time = entry_time;
     }
 
-    public String getDeparture_time() {
+    public LocalDateTime getDeparture_time() {
         return departure_time;
     }
 
-    public void setDeparture_time(String departure_time) {
+    public void setDeparture_time(LocalDateTime departure_time) {
         this.departure_time = departure_time;
     }
 
