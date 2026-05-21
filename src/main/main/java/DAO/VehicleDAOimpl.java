@@ -44,16 +44,16 @@ public class VehicleDAOimpl implements CRUDL<Vehicle> { // la case implementa la
         String sql = "SELECT * FROM vehiculos WHERE codigo_barras = ?"; // consulta sql para leer un registro de la tabla vehiculos, usando el codigo de barras como identificador
         try (PreparedStatement statement = connection.prepareStatement(sql)) { //preparacion para consulta sql
             statement.setInt(1, barcode); //asociamos el placeholder de la consulta sql con el valor del codigo de barras recibido como parametro
-        ResultSet resultSet = statement.executeQuery(); // resultSet se convierte en un objeto del tipo ResultSet (una interfaz(solo índica el tipo no es una instancia)) este objeto es creado por el metodo executeQuery() el cual retorna un objeto de la clase ResultSet que contiene el resultado de la consulta (algo similar a una matriz con filas y columnas) donde están los datos del registro que concide con el codigo de barras
-        if(resultSet.next()) { // resulSet.next() es un metodo que mueve el cursor al siguiente registro del resultado (incialment está en la posicion antes del primer registro) y devuelve true si hay un registro disponible
-            return new Vehicle( //creación del nuevo objeto vehículo apartir de los datos obtenidos de la consulta y guardados en resulSet
-                    resultSet.getInt("id_vehiculo"), // resultSet.getTIPO("nombre_columna") duvuelve el dato de una columna específica del registro almacenado en resultSet
-                    resultSet.getInt("codigo_barras"),
-                    TypeVehicle.valueOf(resultSet.getString("tipo")), // como el constructo espera un TypeVehicle un objeto de tipo enum, hay qeu hacer una converssion, TypeVehicle.valueOf() es un metodo estatico de la clase TypeVehicle que recibe un String y devuelve el valor del enum que coincide con ese String, en este caso el valor de la columna "tipo" del registro obtenido en resultSet
-                    resultSet.getString("placa"),
-                    resultSet.getInt("id_usuario")
-            );
-        }
+            ResultSet resultSet = statement.executeQuery(); // resultSet se convierte en un objeto del tipo ResultSet (una interfaz(solo índica el tipo no es una instancia)) este objeto es creado por el metodo executeQuery() el cual retorna un objeto de la clase ResultSet que contiene el resultado de la consulta (algo similar a una matriz con filas y columnas) donde están los datos del registro que concide con el codigo de barras
+            if(resultSet.next()) { // resulSet.next() es un metodo que mueve el cursor al siguiente registro del resultado (incialment está en la posicion antes del primer registro) y devuelve true si hay un registro disponible
+                return new Vehicle( //creación del nuevo objeto vehículo apartir de los datos obtenidos de la consulta y guardados en resulSet
+                        resultSet.getInt("id"), // resultSet.getTIPO("nombre_columna") duvuelve el dato de una columna específica del registro almacenado en resultSet
+                        resultSet.getInt("codigo_barras"),
+                        TypeVehicle.valueOf(resultSet.getString("tipo")), // como el constructo espera un TypeVehicle un objeto de tipo enum, hay qeu hacer una converssion, TypeVehicle.valueOf() es un metodo estatico de la clase TypeVehicle que recibe un String y devuelve el valor del enum que coincide con ese String, en este caso el valor de la columna "tipo" del registro obtenido en resultSet
+                        resultSet.getString("placa"),
+                        resultSet.getInt("id_usuario")
+                );
+            }
         }catch (SQLException e){
             System.out.println("¡ERROR AL LEER EL VEHICULO!\n");
             //manejo del error
@@ -87,7 +87,7 @@ public class VehicleDAOimpl implements CRUDL<Vehicle> { // la case implementa la
 
     @Override
     public void delete(int id) {
-        String sql = "DELETE FROM vehiculos WHERE id_vehiculo = ?"; // consulta sql para eliminar un registro de la tabla vehiculos, usando id como identificador
+        String sql = "DELETE FROM vehiculos WHERE id = ?"; // consulta sql para eliminar un registro de la tabla vehiculos, usando id como identificador
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id); //asociamos el placeholder de la consulta sql con el valor id recibido como parametro
             statement.executeUpdate(); //ejecucion de la consulta sql
@@ -106,19 +106,19 @@ public class VehicleDAOimpl implements CRUDL<Vehicle> { // la case implementa la
             ResultSet resultSet = statement.executeQuery(sql); // guarda los datos obtenidos de la consulta
             while (resultSet.next()) { // resultSet devuelve true cuando hay un registro en la fila donde el puntero esta pocisionado -> mientras haya registros creará un objeto vehículo nuevo con los datos de cada columna de la "matriz" guardada en resultSet
                 vehicles.add(new Vehicle( //vehículos
-                        resultSet.getInt("id_vehiculo"),
+                        resultSet.getInt("id"),
                         resultSet.getInt("codigo_barras"),
                         TypeVehicle.valueOf(resultSet.getString("tipo")),
                         resultSet.getString("placa"),
                         resultSet.getInt("id_usuario")
                 ));
             }
-            return vehicles; //devolvemos la lista de vehículos obtenida de la consulta sql
         }catch (SQLException e){
             System.out.println("¡ERROR AL LISTAR LOS VEHICULOS!\n");
             //manejo del error
             System.out.println("\nDetalles del error: " + e.getMessage());
-            return null;
+
         }
+        return vehicles; //devolvemos la lista de vehículos obtenida de la consulta sql
     }
 }
