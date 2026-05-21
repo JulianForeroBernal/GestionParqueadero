@@ -27,8 +27,8 @@ public class RecordDAOimpl implements CRUDL<Record> {
         try (PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setString(1, record.getEntry_time());
-            statement.setString(2, record.getDeparture_time());
+            statement.setTimestamp(1, Timestamp.valueOf(record.getEntry_time()));
+            statement.setTimestamp(2, Timestamp.valueOf(record.getDeparture_time()));
             statement.setInt(3, record.getVehicle_id());
             statement.setInt(4, record.getParking_id());
 
@@ -63,8 +63,8 @@ public class RecordDAOimpl implements CRUDL<Record> {
 
                 return new Record(
                         resultSet.getInt("id"),
-                        resultSet.getString("hora_entrada"),
-                        resultSet.getString("hora_salida"),
+                        resultSet.getTimestamp("hora_entrada").toLocalDateTime(),
+                        resultSet.getTimestamp("hora_salida").toLocalDateTime(),
                         resultSet.getInt("vehiculo_id"),
                         resultSet.getInt("parqueadero_id")
                 );
@@ -94,8 +94,8 @@ public class RecordDAOimpl implements CRUDL<Record> {
         try (PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setString(1, record.getEntry_time());
-            statement.setString(2, record.getDeparture_time());
+            statement.setTimestamp(1, Timestamp.valueOf(record.getEntry_time()));
+            statement.setTimestamp(2, Timestamp.valueOf(record.getDeparture_time()));
             statement.setInt(3, record.getVehicle_id());
             statement.setInt(4, record.getParking_id());
             statement.setInt(5, record.getId());
@@ -157,8 +157,8 @@ public class RecordDAOimpl implements CRUDL<Record> {
                 records.add(
                         new Record(
                                 resultSet.getInt("id"),
-                                resultSet.getString("hora_entrada"),
-                                resultSet.getString("hora_salida"),
+                                resultSet.getTimestamp("hora_entrada").toLocalDateTime(),
+                                resultSet.getTimestamp("hora_salida").toLocalDateTime(),
                                 resultSet.getInt("vehiculo_id"),
                                 resultSet.getInt("parqueadero_id")
                         )
