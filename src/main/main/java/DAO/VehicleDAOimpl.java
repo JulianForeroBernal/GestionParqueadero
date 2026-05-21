@@ -7,10 +7,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehiculoDAOimpl implements CRUDL<Vehicle> { // la case implementa la interfaz CRUDL con el tipo de dato Vehicle (es lo que permite la etiqueda <T> de la interfaz, el generico)
+public class VehicleDAOimpl implements CRUDL<Vehicle> { // la case implementa la interfaz CRUDL con el tipo de dato Vehicle (es lo que permite la etiqueda <T> de la interfaz, el generico)
     private final Connection connection; // el atributo de nombre connection es el que nos permitirá establecer conexion y comunicacion con el abase de datos es de tipo Connection (una clase propia de fava de la libreira java.sql) que conteiene los metodos que nos permiten trabajar con la base de datos, es privado porque solo se va a usar dentro de esta clase, y es final porque no se va a modificar después de ser inicializado en el constructor
 
-    public VehiculoDAOimpl(Connection connection) {
+    public VehicleDAOimpl(Connection connection) {
         this.connection = connection; // se le asigna al atributo el valor del parámetro que se va a recibir en el constructor, el cual es un objeto de tipo Connection que se obtiene al llamar al metodo getConnection() de la clase ConnectionDB (que es la clase que se encarga de establecer la conexion con la base de datos)
     }
 
@@ -63,17 +63,62 @@ public class VehiculoDAOimpl implements CRUDL<Vehicle> { // la case implementa l
     }
 
     @Override
-    public void update(Vehicle entity) {
+    public void update(Vehicle vehicle) {
+        String sql = "UPDATE vehiculos SET codigo_barras = ?, tipo = ?, plava = ?, id_usuario = ? WHERE placa =?"; // consulta sql para actualizar un registro de la tabla vehiculos, usando la placa como identificador
+        try (PreparedStatement statement = connection.prepareStatement(sql)) { //preparacion para consulta
+            statement.setInt(1, vehicle.getBarCode()); //asociamos el placeholder de la consulta sql con el valor del codigo de barras del objeto vehículo recibido como parametro
+            statement.setString(2, vehicle.getType().name()); //asociamos el placeholder
+            statement.setString(3, vehicle.getPlate());
+            statement.setInt(4, vehicle.getIdUser());
+            statement.setString(5, vehicle.getPlate()); //asociamos el placeholder del WHERE
+            int filas = statement.executeUpdate(); //ejecucion de la consulta sql, devuelve la cantidad de filas modificadas
+            if(filas > 0){ //validamos que si hubo al menos un registro modificado
+                System.out.println("Vehículo actualizado exitosamente");
+            }else {
+                System.out.println("No se pudo actualizar el vehículo");
 
+            }
+        }catch (SQLException e){
+            System.out.println("¡ERROR AL ACTUALIZAR EL VEHICULO!\n");
+            //manejo del error
+            System.out.println("\nDetalles del error: " + e.getMessage());
+        }
     }
 
     @Override
     public void delete(int id) {
-
+        String sql = "DELETE FROM vehiculos WHERE id_vehiculo = ?"; // consulta sql para eliminar un registro de la tabla vehiculos, usando id como identificador
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id); //asociamos el placeholder de la consulta sql con el valor id recibido como parametro
+            statement.executeUpdate(); //ejecucion de la consulta sql
+        }catch (SQLException e){
+            System.out.println("¡ERROR AL ELIMINAR EL VEHICULO!\n");
+            //manejo del error
+            System.out.println("\nDetalles del error: " + e.getMessage());
+        }
     }
 
     @Override
     public List<Vehicle> list() {
-        return List.of();
+        List<Vehicle> vehicles = new ArrayList<>(); //creacion de una lista vacia de vehículos, esta lista se va a llenar con los objetos vehículo obtenidos de la consulta sql
+        String sql = "SELECT * FROM vehiculos"; // consulta sql para obtener todos los registros
+        try (Statement statement = connection.createStatement()) { // ...
+            ResultSet resultSet = statement.executeQuery(sql); // guarda los datos obtenidos de la consulta
+            while (resultSet.next()) { // resultSet devuelve true cuando hay un registro en la fila donde el puntero esta pocisionado -> mientras haya registros creará un objeto vehículo nuevo con los datos de cada columna de la "matriz" guardada en resultSet
+                vehicles.add(new Vehicle( //vehículos
+                        resultSet.getInt("id_vehiculo"),
+                        resultSet.getInt("codigo_barras"),
+                        TypeVehicle.valueOf(resultSet.getString("tipo")),
+                        resultSet.getString("placa"),
+                        resultSet.getInt("id_usuario")
+                ));
+            }
+            return vehicles; //devolvemos la lista de vehículos obtenida de la consulta sql
+        }catch (SQLException e){
+            System.out.println("¡ERROR AL LISTAR LOS VEHICULOS!\n");
+            //manejo del error
+            System.out.println("\nDetalles del error: " + e.getMessage());
+            return null;
+        }
     }
 }
