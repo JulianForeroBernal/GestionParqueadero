@@ -1,5 +1,6 @@
-package main.main.java.DAO;
 
+package main.main.java.DAO;
+import java.time.LocalDateTime;
 import main.main.java.model.Record;
 
 import java.sql.*;
@@ -27,8 +28,18 @@ public class RecordDAOimpl implements CRUDL<Record> {
         try (PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setTimestamp(1, Timestamp.valueOf(record.getEntryTime()));
-            statement.setTimestamp(2, Timestamp.valueOf(record.getDepartureTime()));
+            statement.setTimestamp(1,
+                    record.getEntryTime() != null
+                            ? Timestamp.valueOf(record.getEntryTime())
+                            : null
+            );
+
+            statement.setTimestamp(2,
+                    record.getDepartureTime() != null
+                            ? Timestamp.valueOf(record.getDepartureTime())
+                            : null
+            );
+
             statement.setInt(3, record.getVehicleId());
             statement.setInt(4, record.getParkingId());
 
@@ -61,10 +72,14 @@ public class RecordDAOimpl implements CRUDL<Record> {
 
             if (resultSet.next()) {
 
+                LocalDateTime salida = resultSet.getTimestamp("hora_salida") != null
+                        ? resultSet.getTimestamp("hora_salida").toLocalDateTime()
+                        : null;
+
                 return new Record(
                         resultSet.getInt("id"),
                         resultSet.getTimestamp("hora_entrada").toLocalDateTime(),
-                        resultSet.getTimestamp("hora_salida").toLocalDateTime(),
+                        salida,
                         resultSet.getInt("vehiculo_id"),
                         resultSet.getInt("parqueadero_id")
                 );
@@ -94,8 +109,18 @@ public class RecordDAOimpl implements CRUDL<Record> {
         try (PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setTimestamp(1, Timestamp.valueOf(record.getEntryTime()));
-            statement.setTimestamp(2, Timestamp.valueOf(record.getDepartureTime()));
+            statement.setTimestamp(1,
+                    record.getEntryTime() != null
+                            ? Timestamp.valueOf(record.getEntryTime())
+                            : null
+            );
+
+            statement.setTimestamp(2,
+                    record.getDepartureTime() != null
+                            ? Timestamp.valueOf(record.getDepartureTime())
+                            : null
+            );
+
             statement.setInt(3, record.getVehicleId());
             statement.setInt(4, record.getParkingId());
             statement.setInt(5, record.getId());
@@ -154,11 +179,15 @@ public class RecordDAOimpl implements CRUDL<Record> {
 
             while (resultSet.next()) {
 
+                LocalDateTime salida = resultSet.getTimestamp("hora_salida") != null
+                        ? resultSet.getTimestamp("hora_salida").toLocalDateTime()
+                        : null;
+
                 records.add(
                         new Record(
                                 resultSet.getInt("id"),
                                 resultSet.getTimestamp("hora_entrada").toLocalDateTime(),
-                                resultSet.getTimestamp("hora_salida").toLocalDateTime(),
+                                salida,
                                 resultSet.getInt("vehiculo_id"),
                                 resultSet.getInt("parqueadero_id")
                         )

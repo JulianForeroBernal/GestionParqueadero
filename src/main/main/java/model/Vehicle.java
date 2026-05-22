@@ -12,7 +12,7 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(int barCode, TypeVehicle type, String plate) {    //constructor parcial, util para el registro de vehiculo por parte del usuario
+    public Vehicle(int barCode, TypeVehicle type, String plate) {    //constructor parcial, util para el registro de vehículo por parte del usuario
         this.barCode = barCode;
         this.type = type;
         this.plate = plate;
