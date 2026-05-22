@@ -51,7 +51,7 @@ public class VehicleDAOimpl implements CRUDL<Vehicle> { // la case implementa la
                         resultSet.getInt("codigo_barras"),
                         TypeVehicle.valueOf(resultSet.getString("tipo")), // como el constructo espera un TypeVehicle un objeto de tipo enum, hay qeu hacer una converssion, TypeVehicle.valueOf() es un metodo estatico de la clase TypeVehicle que recibe un String y devuelve el valor del enum que coincide con ese String, en este caso el valor de la columna "tipo" del registro obtenido en resultSet
                         resultSet.getString("placa"),
-                        resultSet.getInt("id_usuario")
+                        resultSet.getInt("usuario_id")
                 );
             }
         }catch (SQLException e){
@@ -64,13 +64,13 @@ public class VehicleDAOimpl implements CRUDL<Vehicle> { // la case implementa la
 
     @Override
     public void update(Vehicle vehicle) {
-        String sql = "UPDATE vehiculos SET codigo_barras = ?, tipo = ?, plava = ?, id_usuario = ? WHERE placa =?"; // consulta sql para actualizar un registro de la tabla vehiculos, usando la placa como identificador
+        String sql = "UPDATE vehiculos SET codigo_barras = ?, tipo = ?, placa = ?, usuario_id = ? WHERE id =?"; // consulta sql para actualizar un registro de la tabla vehiculos, usando la placa como identificador
         try (PreparedStatement statement = connection.prepareStatement(sql)) { //preparacion para consulta
             statement.setInt(1, vehicle.getBarCode()); //asociamos el placeholder de la consulta sql con el valor del codigo de barras del objeto vehículo recibido como parametro
             statement.setString(2, vehicle.getType().name()); //asociamos el placeholder
             statement.setString(3, vehicle.getPlate());
             statement.setInt(4, vehicle.getIdUser());
-            statement.setString(5, vehicle.getPlate()); //asociamos el placeholder del WHERE
+            statement.setInt(5, vehicle.getIdVehicle()); //asociamos el placeholder del WHERE
             int filas = statement.executeUpdate(); //ejecucion de la consulta sql, devuelve la cantidad de filas modificadas
             if(filas > 0){ //validamos que si hubo al menos un registro modificado
                 System.out.println("Vehículo actualizado exitosamente");
@@ -110,7 +110,7 @@ public class VehicleDAOimpl implements CRUDL<Vehicle> { // la case implementa la
                         resultSet.getInt("codigo_barras"),
                         TypeVehicle.valueOf(resultSet.getString("tipo")),
                         resultSet.getString("placa"),
-                        resultSet.getInt("id_usuario")
+                        resultSet.getInt("usuario_id")
                 ));
             }
         }catch (SQLException e){
