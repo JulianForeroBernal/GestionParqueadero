@@ -1,3 +1,5 @@
+package test;
+
 import main.main.java.DAO.RecordDAOimpl;
 import main.main.java.model.Record;
 import main.main.java.util.ConnectionDB;

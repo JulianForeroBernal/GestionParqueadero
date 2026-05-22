@@ -1,3 +1,5 @@
+package test;
+
 import main.main.java.DAO.ParkingDAOimpl;
 import main.main.java.enums.TypeVehicle;
 import main.main.java.model.Parking;
