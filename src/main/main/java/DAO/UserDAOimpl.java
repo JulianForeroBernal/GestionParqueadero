@@ -75,7 +75,7 @@ public class UserDAOimpl implements CRUDL<User> {
 
     @Override
     public void delete(int id) {
-        String sql = "DELATE FROM usuarios WHERE id = ?";
+        String sql = "DELETE FROM usuarios WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             int filas = statement.executeUpdate();
