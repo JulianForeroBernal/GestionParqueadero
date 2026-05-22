@@ -1,7 +1,10 @@
 package main.main;
 
+import main.main.java.DAO.ParkingDAOimpl;
+import main.main.java.DAO.RecordDAOimpl;
 import main.main.java.DAO.UserDAOimpl;
 import main.main.java.DAO.VehicleDAOimpl;
+import main.main.java.model.Parking;
 import main.main.java.model.User;
 import main.main.java.model.Vehicle;
 import main.main.java.enums.TypeVehicle;
@@ -22,6 +25,8 @@ public class Main {
 
             UserDAOimpl userDAO = new UserDAOimpl(connection);
             VehicleDAOimpl vehicleDAO = new VehicleDAOimpl(connection);
+            ParkingDAOimpl parkingDAO = new ParkingDAOimpl(connection);
+            RecordDAOimpl rocordDAO = new RecordDAOimpl(connection);
 
             User currentUser = null; // usuario logueado
 
@@ -34,7 +39,7 @@ public class Main {
                     System.out.println("1. Crear usuario");
                     System.out.println("2. Iniciar sesion");
                     System.out.println("3. Leer codigo de barras");
-                    System.out.println("3. Salir");
+                    System.out.println("0. Salir");
 
                     int option = sc.nextInt();
                     sc.nextLine();
@@ -50,15 +55,13 @@ public class Main {
                             String name = sc.nextLine();
 
                             System.out.print("Documento: ");
-                            String document = sc.nextLine();
+                            int document = sc.nextInt();
 
                             System.out.print("Correo: ");
                             String email = sc.nextLine();
 
                             User user = new User(0, name, document, email);
                             userDAO.create(user);
-
-                            System.out.println("Usuario creado con exito");
                         }
 
                         // INICIAR SESION (simple por documento)
@@ -67,25 +70,34 @@ public class Main {
                             System.out.println("\n=== INICIAR SESION ===");
 
                             System.out.print("Documento: ");
-                            String document = sc.nextLine();
-
-                            // aqui deberias tener un metodo findByDocument
-                            // por ahora simulamos login
-                            currentUser = new User();
-                            currentUser.setDNI(document);
-
+                            int document = sc.nextInt();
+                            currentUser = userDAO.read(document);
                             System.out.println("Sesion iniciada");
                         }
-// LEER CODIGO
+                        // LEER CODIGO
                         case 3 -> {
-
                             System.out.print("Codigo: ");
                             int code = sc.nextInt();
                             sc.nextLine();
-
                             Vehicle v = vehicleDAO.read(code);
-
                             if (v != null) {
+                                //encontrar usuario dueño del vehículo
+                                User u = userDAO.read(v.getIdUser());
+                                //encontrar espacios vacios en el parqeuadero
+                                TypeVehicle type = v.getType();
+                                Parking p;
+                                switch (type){
+                                    case TypeVehicle.MOTO :
+                                        p = parkingDAO.read(1);
+                                    case TypeVehicle.CARRO :
+                                        p = parkingDAO.read(2);
+                                    case TypeVehicle.BICICLETA :
+                                        p = parkingDAO.read(3);
+                                }
+                                System.out.println("Bienvenido " + u.getName());
+                                System.out.println("Hay " + (p.getAbility() - p.getOccupied()) + " espacios vacios para tu " + v.getType() + " en el parqeudero");
+
+
                                 System.out.println("Placa: " + v.getPlate());
                             } else {
                                 System.out.println("No encontrado");

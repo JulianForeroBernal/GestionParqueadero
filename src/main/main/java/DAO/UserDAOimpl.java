@@ -29,7 +29,7 @@ public class UserDAOimpl implements CRUDL<User> {
 
             // asignacion de valores a los placeholders (?)
             statement.setString(1, user.getName());
-            statement.setString(2, user.getDNI());
+            statement.setInt(2, user.getDNI());
             statement.setString(3, user.getEmail());
 
             // ejecucion de la consulta (INSERT)
@@ -45,7 +45,7 @@ public class UserDAOimpl implements CRUDL<User> {
                 user.setId(keys.getInt(1));
             }
 
-            // cerramos el ResultSet (buena practica)
+            // cerramos el ResultSet (buena práctica)
             keys.close();
 
             // validacion de resultado
@@ -82,7 +82,7 @@ public class UserDAOimpl implements CRUDL<User> {
                 return new User(
                         resultSet.getInt("id"),
                         resultSet.getString("nombre"),
-                        resultSet.getString("dni"),
+                        resultSet.getInt("dni"),
                         resultSet.getString("correo")
                 );
             }
@@ -105,7 +105,7 @@ public class UserDAOimpl implements CRUDL<User> {
 
             // asignacion de valores nuevos
             statement.setString(1, user.getName());
-            statement.setString(2, user.getDNI());
+            statement.setInt(2, user.getDNI());
             statement.setString(3, user.getEmail());
             statement.setInt(4, user.getId());
 
@@ -169,7 +169,7 @@ public class UserDAOimpl implements CRUDL<User> {
                 users.add(new User(
                         resultSet.getInt("id"),
                         resultSet.getString("nombre"),
-                        resultSet.getString("dni"),
+                        resultSet.getInt("dni"),
                         resultSet.getString("correo")
                 ));
             }
