@@ -6,20 +6,20 @@ import java.time.LocalDateTime;
 
 public class Record {
     private int id;
-    private LocalDateTime entry_time;
-    private LocalDateTime departure_time;
-    private int vehicle_id;
-    private int parking_id;
-public Record(){
+    private LocalDateTime entryTime;
+    private LocalDateTime departureTime;
+    private int vehicleId;
+    private int parkingId;
+    public Record(){
 
-}
-public Record(int id,LocalDateTime entry_time,LocalDateTime departure_time,int vehicle_id,int parking_id){
-    this.id=id;
-    this.entry_time=entry_time;
-    this.departure_time=departure_time;
-    this.vehicle_id=vehicle_id;
-    this.parking_id=parking_id;
-}
+    }
+    public Record(int id, LocalDateTime entryTime, LocalDateTime departureTime, int vehicleId, int parkingId){
+        this.id = id;
+        this.entryTime = entryTime;
+        this.departureTime = departureTime;
+        this.vehicleId = vehicleId;
+        this.parkingId = parkingId;
+    }
 
     public int getId() {
         return id;
@@ -29,46 +29,46 @@ public Record(int id,LocalDateTime entry_time,LocalDateTime departure_time,int v
         this.id = id;
     }
 
-    public LocalDateTime getEntry_time() {
-        return entry_time;
+    public LocalDateTime getEntryTime() {
+        return entryTime;
     }
 
-    public void setEntry_time(LocalDateTime entry_time) {
-        this.entry_time = entry_time;
+    public void setEntryTime(LocalDateTime entryTime) {
+        this.entryTime = entryTime;
     }
 
-    public LocalDateTime getDeparture_time() {
-        return departure_time;
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
     }
 
-    public void setDeparture_time(LocalDateTime departure_time) {
-        this.departure_time = departure_time;
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
     }
 
-    public int getVehicle_id() {
-        return vehicle_id;
+    public int getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicle_id(int vehicle_id) {
-        this.vehicle_id = vehicle_id;
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
-    public int getParking_id() {
-        return parking_id;
+    public int getParkingId() {
+        return parkingId;
     }
 
-    public void setParking_id(int parking_id) {
-        this.parking_id = parking_id;
+    public void setParkingId(int parkingId) {
+        this.parkingId = parkingId;
     }
 
     @Override
     public String toString() {
         return "Record{" +
                 "id=" + id +
-                ", entry_time='" + entry_time + '\'' +
-                ", departure_time='" + departure_time + '\'' +
-                ", vehicle_id=" + vehicle_id +
-                ", parking_id=" + parking_id +
+                ", entryTime='" + entryTime + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", vehicleId=" + vehicleId +
+                ", parkingId=" + parkingId +
                 '}';
     }
 }
