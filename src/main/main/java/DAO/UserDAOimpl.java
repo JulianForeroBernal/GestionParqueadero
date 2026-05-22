@@ -34,7 +34,7 @@ public class UserDAOimpl implements CRUDL<User> {
 
     @Override
     public User read(int id) {
-        String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
+        String sql = "SELECT * FROM usuarios WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) { // preparacion para la consulta
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery(); // objeto que guarda los datos que recibe de la consulta
@@ -55,7 +55,7 @@ public class UserDAOimpl implements CRUDL<User> {
 
     @Override
     public void update(User user) {
-        String sql = "UPDATE usuarios SET nombre = ?, dni = ?, email = ? WHERE id = ?";
+        String sql = "UPDATE usuarios SET nombre = ?, dni = ?, correo = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) { //perara la consulta
             statement.setString(1, user.getName());
             statement.setString(2, user.getDNI());
@@ -93,7 +93,7 @@ public class UserDAOimpl implements CRUDL<User> {
     @Override
     public List<User> list() {
         List<User> users = new ArrayList<>();
-        String sql = "SELECTO * FROM usuarios";
+        String sql = "SELECT * FROM usuarios";
         try (Statement statement = connection.createStatement()) { // no hay qeu preparar la consulta, pues no hay placeholders qeu modificar, la consulta ya está bien y será ejecutada justo como esta en la variable sql
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) { //se desplaza entre las filas
