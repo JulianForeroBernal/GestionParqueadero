@@ -1,8 +1,10 @@
 package main.main;
 
 import main.main.java.DAO.UserDAOimpl;
+import main.main.java.DAO.VehicleDAOimpl;
 import main.main.java.model.User;
 import main.main.java.model.Vehicle;
+import main.main.java.enums.TypeVehicle;
 import main.main.java.util.ConnectionDB;
 
 import java.sql.Connection;
@@ -16,111 +18,164 @@ public class Main {
         // Scanner para leer datos por consola
         Scanner sc = new Scanner(System.in);
 
-        // Conexion a la base de datos usando try-with-resources
         try (Connection connection = ConnectionDB.getConnection()) {
 
-            // DAO del usuario (permite CRUD en la BD)
             UserDAOimpl userDAO = new UserDAOimpl(connection);
+            VehicleDAOimpl vehicleDAO = new VehicleDAOimpl(connection);
 
-            // Menú infinito hasta que el usuario decida salir
+            User currentUser = null; // usuario logueado
+
             while (true) {
 
-                System.out.println("\n SISTEMA PARQUEADERO ");
-                System.out.print("\nSeleccione una opcion: ");
-                System.out.println("\n1. Registrar usuario");
-                System.out.println("2. Leer código de barras");
-                System.out.println("3. Salir");
+                // MENU PRINCIPAL
+                if (currentUser == null) {
 
+                    System.out.println("\n SISTEMA PARQUEADERO ");
+                    System.out.println("1. Crear usuario");
+                    System.out.println("2. Iniciar sesion");
+                    System.out.println("3. Leer codigo de barras");
+                    System.out.println("3. Salir");
 
-                // Leer opcion del usuario
-                int option = sc.nextInt();
-                sc.nextLine(); // limpiar buffer (evita errores con nextLine)
+                    int option = sc.nextInt();
+                    sc.nextLine();
 
-                // Estructura del menu
-                switch (option) {
+                    switch (option) {
 
-                    // OPCION 1: REGISTRAR USUARIO
+                        // CREAR USUARIO
+                        case 1 -> {
 
-                    case 1 -> {
+                            System.out.println("\n=== CREAR USUARIO ===");
 
-                        System.out.println("\n=== REGISTRAR USUARIO ===");
+                            System.out.print("Nombre: ");
+                            String name = sc.nextLine();
 
-                        // Pedir datos al usuario
-                        System.out.print("Nombre: ");
-                        String name = sc.nextLine();
+                            System.out.print("Documento: ");
+                            String document = sc.nextLine();
 
-                        System.out.print("Documento: ");
-                        String document = sc.nextLine();
+                            System.out.print("Correo: ");
+                            String email = sc.nextLine();
 
-                        System.out.print("Correo: ");
-                        String email = sc.nextLine();
-
-                        if (email.endsWith("@ucundinamarca.edu.co")){ // por ahora se "valída" que sea mienbro de la universidad mediante el correo ingresado, para hacerlo con más rigor (e incluso con otros datos como el número de identificacion) se precisaria de bases de datos de la universidad
-                            // Crear objeto User con los datos ingresados
-                            User user = new User(0, name, document, email); //se pasa 0 como id en todas la ocaciones, pues la base de datos automaticamente cambiara este valor por el siguiente en el registro
-                            // Guardar usuario en la base de datos
+                            User user = new User(0, name, document, email);
                             userDAO.create(user);
-                            System.out.println("Usuario registrado correctamente");
-                            // INMEDIANTAMENTE EL USUARIO DEBE REGISTRAR COMO MINIMO UN VECHICULO
-                            int optionRecord; //variable de control para el registro de vehiculos
-                            do {
-                                System.out.println("REGISTRE SU VEHICULO");
-                                System.out.println("Tipo del vehiculo: ");
-                                String type = sc.nextLine();
-                                System.out.println("Placa: ");
-                                String plate = sc.nextLine();
 
-                                //generacion codigo de barras
-
-
-
-                                Vehicle vehicle = new Vehicle();
-
-
-                                System.out.println("""
-                                        1. registrar otro vehiculo
-                                        0. salir
-                                        """);
-                                optionRecord = sc.nextInt();
-                            }while (optionRecord == 1);
-
-                        }else {
-                            System.out.println("el correo que ingreso: " + email + "no pertenece a nincun mienbro de nuestra comunidad universitara por lo tanto el registro es invalido");
+                            System.out.println("Usuario creado con exito");
                         }
+
+                        // INICIAR SESION (simple por documento)
+                        case 2 -> {
+
+                            System.out.println("\n=== INICIAR SESION ===");
+
+                            System.out.print("Documento: ");
+                            String document = sc.nextLine();
+
+                            // aqui deberias tener un metodo findByDocument
+                            // por ahora simulamos login
+                            currentUser = new User();
+                            currentUser.setDNI(document);
+
+                            System.out.println("Sesion iniciada");
+                        }
+// LEER CODIGO
+                        case 3 -> {
+
+                            System.out.print("Codigo: ");
+                            int code = sc.nextInt();
+                            sc.nextLine();
+
+                            Vehicle v = vehicleDAO.read(code);
+
+                            if (v != null) {
+                                System.out.println("Placa: " + v.getPlate());
+                            } else {
+                                System.out.println("No encontrado");
+                            }
+                        }
+                        case 4 -> {
+                            System.out.println("Saliendo");
+                            return;
+                        }
+
+                        default -> System.out.println("Opcion invalida");
                     }
 
-                    // OPCION 2: LEER CODIGO DE BARRAS
+                } else {
 
-                    case 2 -> {
-                        System.out.println("\n=== LEER CÓDIGO DE BARRAS ===");
-                        // Pedir código de barras del vehículo
-                        System.out.print("Ingrese código de barras: ");
-                        int code = sc.nextInt();
+                    // MENU LOGUEADO
+                    System.out.println("\n=== MENU USUARIO ===");
+                    System.out.println("1. Registrar vehiculo");
+                    System.out.println("2. Buscar por placa");
+                    System.out.println("3. Leer codigo de barras");
+                    System.out.println("4. Cerrar sesion");
 
-                        // Mostrarlo por ahora
-                        System.out.println("Código ingresado: " + code);
+                    int option = sc.nextInt();
+                    sc.nextLine();
 
+                    switch (option) {
+
+                        // REGISTRAR VEHICULO
+                        case 1 -> {
+
+                            System.out.println("Tipo (CARRO/MOTO/BICICLETA): ");
+                            TypeVehicle type = TypeVehicle.valueOf(sc.nextLine().toUpperCase());
+
+                            System.out.println("Placa: ");
+                            String plate = sc.nextLine();
+
+                            int code = (int) (Math.random() * 100000);
+
+                            Vehicle vehicle = new Vehicle(code, type, plate);
+                            vehicle.setIdUser(currentUser.getId());
+
+                            vehicleDAO.create(vehicle);
+
+                            System.out.println("Vehiculo registrado");
+                        }
+
+                        // BUSCAR POR PLACA
+                        case 2 -> {
+
+                            System.out.print("Placa: ");
+                            String plate = sc.nextLine();
+
+                            Vehicle v = vehicleDAO.findByPlate(plate);
+
+                            if (v != null) {
+                                System.out.println("Encontrado: " + v);
+                            } else {
+                                System.out.println("No encontrado");
+                            }
+                        }
+
+                        // LEER CODIGO
+                        case 3 -> {
+
+                            System.out.print("Codigo: ");
+                            int code = sc.nextInt();
+                            sc.nextLine();
+
+                            Vehicle v = vehicleDAO.read(code);
+
+                            if (v != null) {
+                                System.out.println("Placa: " + v.getPlate());
+                            } else {
+                                System.out.println("No encontrado");
+                            }
+                        }
+
+                        // LOGOUT
+                        case 4 -> {
+                            currentUser = null;
+                            System.out.println("Sesion cerrada");
+                        }
+
+                        default -> System.out.println("Opcion invalida");
                     }
-
-
-                    // OPCIÓN 3: SALIR DEL SISTEMA
-
-                    case 3 -> {
-
-                        System.out.println("Saliendo del sistema...");
-                        return; // termina el programa
-                    }
-
-                    // OPCION INVALIDA
-
-                    default -> System.out.println("Opción invalida");
                 }
             }
 
         } catch (SQLException e) {
-            // Error de conexion con la base de datos
-            System.out.println("Error de conexión a la BD");
-            System.out.println("Detalles: " + e.getMessage());
+            System.out.println("Error BD: " + e.getMessage());
         }
     }
 }
