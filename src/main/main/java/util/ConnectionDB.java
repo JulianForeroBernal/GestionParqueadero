@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class ConnectionDB {
 
-    private static final String URL = "jdbc:mysql://localhost:3114/gestionParqueadero"; // atributo privado, constante y de uso propio de la clase (static), que guarda la dirección de la base de datos
+    private static final String URL = "jdbc:mysql://localhost:3314/parqueadero"; // atributo privado, constante y de uso propio de la clase (static), que guarda la dirección de la base de datos
     private static final String USER = "root"; // atributo privado, constante y de uso propio de la clase (static), que guarda el usuario de la base de datos
     private static final String PASSWORD = "1234"; // atributo privado, constante y de uso propio de la clase (static), que guarda la contraseña de la base de datos
 
