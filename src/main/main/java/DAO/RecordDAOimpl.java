@@ -27,10 +27,10 @@ public class RecordDAOimpl implements CRUDL<Record> {
         try (PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setTimestamp(1, Timestamp.valueOf(record.getEntry_time()));
-            statement.setTimestamp(2, Timestamp.valueOf(record.getDeparture_time()));
-            statement.setInt(3, record.getVehicle_id());
-            statement.setInt(4, record.getParking_id());
+            statement.setTimestamp(1, Timestamp.valueOf(record.getEntryTime()));
+            statement.setTimestamp(2, Timestamp.valueOf(record.getDepartureTime()));
+            statement.setInt(3, record.getVehicleId());
+            statement.setInt(4, record.getParkingId());
 
             int filas = statement.executeUpdate();
 
@@ -94,10 +94,10 @@ public class RecordDAOimpl implements CRUDL<Record> {
         try (PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            statement.setTimestamp(1, Timestamp.valueOf(record.getEntry_time()));
-            statement.setTimestamp(2, Timestamp.valueOf(record.getDeparture_time()));
-            statement.setInt(3, record.getVehicle_id());
-            statement.setInt(4, record.getParking_id());
+            statement.setTimestamp(1, Timestamp.valueOf(record.getEntryTime()));
+            statement.setTimestamp(2, Timestamp.valueOf(record.getDepartureTime()));
+            statement.setInt(3, record.getVehicleId());
+            statement.setInt(4, record.getParkingId());
             statement.setInt(5, record.getId());
 
             int filas = statement.executeUpdate();
