@@ -21,7 +21,7 @@ public class TestUsuario {
                     new User(
                             0,
                             "Julian",
-                            "123456",
+                            123456,
                             "julian@udec.edu"
                     );
 
@@ -107,7 +107,7 @@ public class TestUsuario {
             User updatedUser = new User(
                     1,
                     "Julian Updated",
-                    "999999",
+                    999999,
                     "updated@udec.edu"
             );
 

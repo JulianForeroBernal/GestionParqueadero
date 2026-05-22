@@ -66,9 +66,7 @@ public class Main {
 
                         // INICIAR SESION (simple por documento)
                         case 2 -> {
-
                             System.out.println("\n=== INICIAR SESION ===");
-
                             System.out.print("Documento: ");
                             int document = sc.nextInt();
                             currentUser = userDAO.read(document);
@@ -84,20 +82,11 @@ public class Main {
                                 //encontrar usuario dueño del vehículo
                                 User u = userDAO.read(v.getIdUser());
                                 //encontrar espacios vacios en el parqeuadero
-                                TypeVehicle type = v.getType();
-                                Parking p;
-                                switch (type){
-                                    case TypeVehicle.MOTO :
-                                        p = parkingDAO.read(1);
-                                    case TypeVehicle.CARRO :
-                                        p = parkingDAO.read(2);
-                                    case TypeVehicle.BICICLETA :
-                                        p = parkingDAO.read(3);
-                                }
+                                TypeVehicle type =  v.getType();
+                                Parking p = parkingDAO.readByType(type);
+                                //bienvenida
                                 System.out.println("Bienvenido " + u.getName());
-                                System.out.println("Hay " + (p.getAbility() - p.getOccupied()) + " espacios vacios para tu " + v.getType() + " en el parqeudero");
-
-
+                                System.out.println("Hay " + (p.getAbility() - p.getOccupied()) + " espacios vacios para tu " + v.getType() + " en el parquedero");
                                 System.out.println("Placa: " + v.getPlate());
                             } else {
                                 System.out.println("No encontrado");
@@ -110,9 +99,7 @@ public class Main {
 
                         default -> System.out.println("Opcion invalida");
                     }
-
                 } else {
-
                     // MENU LOGUEADO
                     System.out.println("\n=== MENU USUARIO ===");
                     System.out.println("1. Registrar vehiculo");
@@ -127,15 +114,16 @@ public class Main {
 
                         // REGISTRAR VEHICULO
                         case 1 -> {
-
                             System.out.println("Tipo (CARRO/MOTO/BICICLETA): ");
                             TypeVehicle type = TypeVehicle.valueOf(sc.nextLine().toUpperCase());
 
                             System.out.println("Placa: ");
                             String plate = sc.nextLine();
 
+                            //barras (falta)
                             int code = (int) (Math.random() * 100000);
 
+                            //
                             Vehicle vehicle = new Vehicle(code, type, plate);
                             vehicle.setIdUser(currentUser.getId());
 
@@ -161,14 +149,19 @@ public class Main {
 
                         // LEER CODIGO
                         case 3 -> {
-
                             System.out.print("Codigo: ");
                             int code = sc.nextInt();
                             sc.nextLine();
-
                             Vehicle v = vehicleDAO.read(code);
-
                             if (v != null) {
+                                //encontrar usuario dueño del vehículo
+                                User u = userDAO.read(v.getIdUser());
+                                //encontrar espacios vacios en el parqeuadero
+                                TypeVehicle type =  v.getType();
+                                Parking p = parkingDAO.readByType(type);
+                                //bienvenida
+                                System.out.println("Bienvenido " + u.getName());
+                                System.out.println("Hay " + (p.getAbility() - p.getOccupied()) + " espacios vacios para tu " + v.getType() + " en el parquedero");
                                 System.out.println("Placa: " + v.getPlate());
                             } else {
                                 System.out.println("No encontrado");
@@ -180,7 +173,6 @@ public class Main {
                             currentUser = null;
                             System.out.println("Sesion cerrada");
                         }
-
                         default -> System.out.println("Opcion invalida");
                     }
                 }
