@@ -37,7 +37,7 @@ public class Barcode {
         // Ejecutar en el hilo de interfaz gráfica de Java
         SwingUtilities.invokeLater(() -> {
             JFrame ventana = new JFrame("Código de Barras: " + titulo);
-            ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             ventana.setSize(400, 200);
             ventana.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
 

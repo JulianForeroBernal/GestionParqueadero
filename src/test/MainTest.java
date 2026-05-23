@@ -9,6 +9,7 @@ import main.main.java.model.Parking;
 import main.main.java.model.Record;
 import main.main.java.model.User;
 import main.main.java.model.Vehicle;
+import main.main.java.util.Barcode;
 import main.main.java.util.ConnectionDB;
 
 import java.sql.Connection;
@@ -109,10 +110,10 @@ public class MainTest {
                             // Validar si existe
                             if (v != null) {
 
-                                // Buscar dueño del vehiculo
+                                // Buscar dueño del vehículo
                                 User u = userDAO.read(v.getIdUser());
 
-                                // Obtener tipo del vehiculo
+                                // Obtener tipo del vehículo
                                 TypeVehicle type = v.getType();
 
                                 // Buscar parqueadero correspondiente
@@ -199,7 +200,7 @@ public class MainTest {
 
                             System.out.println("Tipo (CARRO/MOTO/BICICLETA): ");
 
-                            // Leer tipo de vehiculo
+                            // Leer tipo de vehículo
                             TypeVehicle type =
                                     TypeVehicle.valueOf(
                                             sc.nextLine().toUpperCase()
@@ -208,10 +209,16 @@ public class MainTest {
                             System.out.println("Placa: ");
                             String plate = sc.nextLine();
 
-                            // Generar codigo de barras aleatorio
-                            int code = (int) (Math.random() * 100000);
+                            // Generar codigo de barras aleatorias
+                            int code = Barcode.ramdomNum(8);
+                            String codeString = String.valueOf(code);
+                            Barcode.createBarcode(codeString,300,100,"C:/Users/julia/OneDrive/Documentos/onedrive/Escritorio/codigo de barras");
+                            Barcode.ShowWindow("C:/Users/julia/OneDrive/Documentos/onedrive/Escritorio/codigo de barras", "codigo de barras para " + plate);
+                            System.out.println("su codigo de barras es: " + code);
+                            System.out.println("guardelo para facilitar su ingreso y salida");
+                            //
 
-                            // Crear vehiculo
+                            // Crear vehículo
                             Vehicle vehicle =
                                     new Vehicle(code, type, plate);
 
@@ -257,10 +264,10 @@ public class MainTest {
                             // Validar si existe
                             if (v != null) {
 
-                                // Buscar dueño del vehiculo
+                                // Buscar dueño del vehículo
                                 User u = userDAO.read(v.getIdUser());
 
-                                // Obtener tipo del vehiculo
+                                // Obtener tipo del vehículo
                                 TypeVehicle type = v.getType();
 
                                 // Buscar parqueadero
@@ -335,6 +342,8 @@ public class MainTest {
 
             // Error de conexion con la base de datos
             System.out.println("Error BD: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
