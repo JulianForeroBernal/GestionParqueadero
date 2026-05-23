@@ -1,4 +1,4 @@
-DROP DATABASE parqueadero;
+DROP DATABASE IF EXISTS parqueadero;
 
 CREATE DATABASE  IF NOT EXISTS `parqueadero` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `parqueadero`;
@@ -41,6 +41,10 @@ CREATE TABLE `parqueaderos` (
 
 LOCK TABLES `parqueaderos` WRITE;
 /*!40000 ALTER TABLE `parqueaderos` DISABLE KEYS */;
+INSERT INTO `parqueaderos` (`id`, `zona`, `capacidad`, `ocupados`) VALUES
+                                                                       (1, 'MOTO', 80, 42),
+                                                                       (2, 'CARRO', 60, 26),
+                                                                       (3, 'BICICLETA', 40, 10);
 /*!40000 ALTER TABLE `parqueaderos` ENABLE KEYS */;
 UNLOCK TABLES;
 

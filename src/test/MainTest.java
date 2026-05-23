@@ -41,7 +41,7 @@ public class MainTest {
                 // MENU PRINCIPAL
                 if (currentUser == null) {
 
-                    System.out.println("\n SISTEMA PARQUEADERO ");
+                    System.out.println("/n SISTEMA PARQUEADERO ");
                     System.out.println("1. Crear usuario");
                     System.out.println("2. Iniciar sesion");
                     System.out.println("3. Leer codigo de barras");
@@ -55,7 +55,7 @@ public class MainTest {
                         // CREAR USUARIO
                         case 1 -> {
 
-                            System.out.println("\n=== CREAR USUARIO ===");
+                            System.out.println("/n=== CREAR USUARIO ===");
 
                             System.out.print("Nombre: ");
                             String name = sc.nextLine();
@@ -77,7 +77,7 @@ public class MainTest {
                         // INICIAR SESION
                         case 2 -> {
 
-                            System.out.println("\n=== INICIAR SESION ===");
+                            System.out.println("/n=== INICIAR SESION ===");
 
                             System.out.print("Documento: ");
                             int document = sc.nextInt();
@@ -184,7 +184,7 @@ public class MainTest {
                 } else {
 
                     // MENU USUARIO LOGUEADO
-                    System.out.println("\n=== MENU USUARIO ===");
+                    System.out.println("/n=== MENU USUARIO ===");
                     System.out.println("1. Registrar vehiculo");
                     System.out.println("2. Buscar por placa");
                     System.out.println("3. Leer codigo de barras");
@@ -212,8 +212,8 @@ public class MainTest {
                             // Generar codigo de barras aleatorias
                             int code = Barcode.ramdomNum(8);
                             String codeString = String.valueOf(code);
-                            Barcode.createBarcode(codeString,300,100,"C:/Users/julia/OneDrive/Documentos/onedrive/Escritorio/codigo de barras");
-                            Barcode.ShowWindow("C:/Users/julia/OneDrive/Documentos/onedrive/Escritorio/codigo de barras", "codigo de barras para " + plate);
+                            Barcode.createBarcode(codeString,300,100,"C:/Users/USUARIO/Documents/SEMESTRE 3/programacion 2/proyecto/GestionParqueadero/Docs/Barcodes");
+                            Barcode.ShowWindow("C:/Users/USUARIO/Documents/SEMESTRE 3/programacion 2/proyecto/GestionParqueadero/Docs/Barcodes", "codigo de barras para " + plate);
                             System.out.println("su codigo de barras es: " + code);
                             System.out.println("guardelo para facilitar su ingreso y salida");
                             //
