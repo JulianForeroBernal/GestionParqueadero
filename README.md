@@ -2,14 +2,16 @@
 
 ## 0. Instrucciones de uso.
 
-Clonar el repositorio en su máquina local: 
-bash: 
+Clonar el repositorio en su máquina local:
+
 "git clone https://github.com/JulianForeroBernal/GestionParqueadero.git"
 
-O en su defecto hacer un pull para bajar las actualizaciones del repositorio:
-"git pull origin main"
+Abrir el explorador de archivos y sobre la ubicacion del archivo database_parquedero.sql y ejectutar el siguiente comando 
 
-en proceso...
+Docker run -d --name gestionParqueadero -e MYSQL_ROOT_PASSWORD=1234 -v "${PWD}/database_parqueadero.sql:/docker-entrypoint-initdb.d/init.sql" -p 3306:3306 mysql:latest
+
+Esperar unos segundos...
+entrar al editor de código y ejecutar el archivo main
 
 ## 1. Estructura del Proyecto
 
