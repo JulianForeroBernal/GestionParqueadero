@@ -182,4 +182,40 @@ public class UserDAOimpl implements CRUDL<User> {
         // devolver lista completa
         return users;
     }
+    // buscar usuario por dni
+    public User findByDNI(int dni) {
+
+        // consulta SQL
+        String sql = "SELECT * FROM usuarios WHERE dni = ?";
+
+        try (PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
+
+            // asignar dni
+            statement.setInt(1, dni);
+
+            // ejecutar consulta
+            ResultSet resultSet = statement.executeQuery();
+
+            // validar si existe usuario
+            if (resultSet.next()) {
+
+                // retornar objeto usuario
+                return new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nombre"),
+                        resultSet.getInt("dni"),
+                        resultSet.getString("correo")
+                );
+            }
+
+        } catch (SQLException e) {
+
+            // error SQL
+            System.out.println("Error buscando usuario por dni");
+            System.out.println("Detalles: " + e.getMessage());
+        }
+
+        return null;
+    }
 }
