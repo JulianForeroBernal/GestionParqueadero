@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class Barcode {
     // 1. Generar número aleatorio
-    private static int ramdomNum(int digitos) {
+    public static int ramdomNum(int digitos) {
         Random random = new Random();
         int minimo = (int) Math.pow(10, digitos - 1);
         int maximo = (int) Math.pow(10, digitos) - 1;
@@ -21,11 +21,11 @@ public class Barcode {
 
     }
     // 2 y 4. Convertir a código de barras y guardar en disco
-    private static void createBarcode(String datos, int ancho, int alto, String rutaArchivo) throws Exception {
+    public static void createBarcode(String numero, int ancho, int alto, String rutaArchivo) throws Exception {
         Code128Writer escritorBarcode = new Code128Writer();
 
         // Codifica el string en una matriz de bits
-        BitMatrix matrizBits = escritorBarcode.encode(datos, BarcodeFormat.CODE_128, ancho, alto);
+        BitMatrix matrizBits = escritorBarcode.encode(numero, BarcodeFormat.CODE_128, ancho, alto);
 
         // Convierte la matriz de bits y la guarda directamente como un archivo PNG
         Path path = FileSystems.getDefault().getPath(rutaArchivo);
@@ -33,7 +33,7 @@ public class Barcode {
     }
 
     // 5. Mostrar la imagen generada en una ventana emergente (JFrame)
-    private static void ShowWindow(String rutaImagen, String titulo) {
+    public static void ShowWindow(String rutaImagen, String titulo) {
         // Ejecutar en el hilo de interfaz gráfica de Java
         SwingUtilities.invokeLater(() -> {
             JFrame ventana = new JFrame("Código de Barras: " + titulo);
