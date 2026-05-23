@@ -3,24 +3,24 @@ package main.main.java.model;
 public class User {
     private int id;
     private String name;
-    private String DNI;
+    private int DNI;
     private String email;
 
     public User(){
 
     }
-    public User(int id, String name, String DNI, String email) {
+    public User(int id, String name, int DNI, String email) {
         this.DNI = DNI;
         this.email = email;
         this.id = id;
         this.name = name;
     }
 
-    public String getDNI() {
+    public int getDNI() {
         return DNI;
     }
 
-    public void setDNI(String DNI) {
+    public void setDNI(int DNI) {
         this.DNI = DNI;
     }
 

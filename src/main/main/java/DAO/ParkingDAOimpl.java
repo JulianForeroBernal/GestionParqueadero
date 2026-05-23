@@ -111,5 +111,26 @@ public class ParkingDAOimpl implements CRUDL<Parking> {
         }
         return parkings;
     }
+
+    public Parking readByType(TypeVehicle type) {
+        String sql = "SELECT * FROM parqueaderos WHERE zona = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, type.toString());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Parking(
+                        resultSet.getInt("capacidad"),
+                        resultSet.getInt("id"),
+                        resultSet.getInt("ocupados"),
+                        TypeVehicle.valueOf(resultSet.getString("zona"))
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("¡Error al leer parqueadero!");
+            System.out.println("Detalles: " + e.getMessage());
+        }
+        return null;
+    }
+
 }
 

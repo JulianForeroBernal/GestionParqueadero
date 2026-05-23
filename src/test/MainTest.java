@@ -1,4 +1,4 @@
-package main.main;
+package test;
 
 import main.main.java.DAO.ParkingDAOimpl;
 import main.main.java.DAO.RecordDAOimpl;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-public class Main {
+public class MainTest {
 
     public static void main(String[] args) {
 
